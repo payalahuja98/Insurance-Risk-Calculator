@@ -1,3 +1,5 @@
+package insurance_risk;
+
 import java.util.ArrayList;
 
 public class Member {
@@ -71,5 +73,19 @@ public class Member {
 	}
 	public void setHasAlzheimers(String hasAlzheimers) {
 		this.hasAlzheimers = hasAlzheimers;
+	}
+	
+	Member(String lastName, String firstName, int age, int height, int weight, 
+			int bpSyst, int bpDias, String cancer, String diabetes, String alzheimers) {
+		setLastName(lastName);
+		setFirstName(firstName);
+		setAge(age);
+		setHeight(height);
+		setWeight(weight);
+		setbPSyst(bpSyst);
+		setbPDias(bpDias);
+		setHasCancer(cancer);
+		setHasDiabetes(diabetes);
+		setHasAlzheimers(alzheimers);	
 	}
 }

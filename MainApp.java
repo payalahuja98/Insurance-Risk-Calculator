@@ -1,3 +1,5 @@
+package insurance_risk;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -34,8 +36,10 @@ public class MainApp {
 			System.out.println("\t7. Exit");
 			System.out.print("Please enter your choice: ");
 		}
-		public static void addNewMember() {
-			Member newMember = new Member();
+		public static void addNewMember(String lastName, String firstName, int age, int height, int weight, 
+				int bpSyst, int bpDias, String cancer, String diabetes, String alzheimers) {
+			Member newMember = new Member(lastName, firstName, age, height, weight,
+					bpSyst, bpDias, cancer, diabetes, alzheimers);
 			Scanner sc = new Scanner(System.in);
 			System.out.println("Enter first and last name: ");
 			String fullName = sc.nextLine();

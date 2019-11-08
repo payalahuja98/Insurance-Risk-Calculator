@@ -13,7 +13,7 @@ public class MainApp {
 		System.out.println(starField);
 	}
 	private static void printWelcome() {
-		printStars(53);
+		printStars(40);
 		System.out.println("\tINSURANCE SCORE CARD");
 		System.out.println("  This app scores a potential customer");
 		System.out.println("  on various health attributes: blood");
@@ -22,7 +22,13 @@ public class MainApp {
 		System.out.println("  each member's insurance grade to a");
 		System.out.println("  JSON file so that they can be easily");
 		System.out.println("  shared on a web-based data exchange.");
-		printStars(53);
+		printStars(40);
+	}
+	private static void printGoodBye() {
+		printStars(40);
+		System.out.println("         INSURANCE SCORE CARD");
+		System.out.println("               THANK YOU");
+		printStars(40);
 	}
 	//Menu 
 		public static void showMenu() {
@@ -87,7 +93,7 @@ public class MainApp {
 				}
 				if (choice == 2) {
 					//Add a new member
-					//addNewMember();
+					//addNewMember(members);
 				}
 				if (choice == 3) {
 					//Save members
@@ -101,7 +107,7 @@ public class MainApp {
 				if (choice == 6) {
 					//Save assessments as JSON
 				}
-				
 			} while (choice != 7);
+			printGoodBye();
 		}
 }

@@ -1,5 +1,7 @@
 import java.io.BufferedWriter;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
@@ -35,8 +37,24 @@ public class MemberWriter {
 		}		
 	}
 	
-	public static boolean writeToBinary() {
-		return false;
+	/**
+	 * 
+	 * @param fileName binary file to write to
+	 * @param members list of members
+	 * @return true if written successfully, false otherwise
+	 */
+	public static boolean writeToBinary(String fileName, ArrayList<Member> members) {
+		try {
+			//creates object output stream
+			ObjectOutputStream writer = new ObjectOutputStream(
+					new FileOutputStream(fileName));
+			writer.writeObject(members);
+			writer.close();
+			return true;
+		}
+		catch(Exception e) {
+			return false;
+		}		
 	}
 	
 	public static boolean writeToXML() {

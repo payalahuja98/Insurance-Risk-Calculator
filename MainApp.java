@@ -76,7 +76,6 @@ public class MainApp {
 				showMenu();
 				choice = sc.nextInt();
 				if (choice == 1) {
-					//List members from the file
 					
 				}
 				if (choice == 2) {

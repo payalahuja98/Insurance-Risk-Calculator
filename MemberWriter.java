@@ -1,3 +1,5 @@
+import java.beans.XMLEncoder;
+import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
@@ -45,7 +47,7 @@ public class MemberWriter {
 	 */
 	public static boolean writeToBinary(String fileName, ArrayList<Member> members) {
 		try {
-			//creates object output stream
+			//creates object-output stream
 			ObjectOutputStream writer = new ObjectOutputStream(
 					new FileOutputStream(fileName));
 			writer.writeObject(members);
@@ -57,7 +59,23 @@ public class MemberWriter {
 		}		
 	}
 	
-	public static boolean writeToXML() {
-		return false;
+	/**
+	 * 
+	 * @param fileName XML file to write to
+	 * @param members list of members
+	 * @return true if written successfully, false otherwise
+	 */
+	public static boolean writeToXML(String fileName, ArrayList<Member> members) {
+		try {
+			//creates new XML encoder to write to output stream
+			XMLEncoder writer = new XMLEncoder(
+					new BufferedOutputStream(new FileOutputStream(fileName)));
+			writer.writeObject(members);
+			writer.close();
+			return true;
+		}
+		catch(Exception e) {
+			return false;
+		}
 	}
 }

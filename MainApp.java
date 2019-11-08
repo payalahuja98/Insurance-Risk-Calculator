@@ -42,7 +42,7 @@ public class MainApp {
 			System.out.println("\t7. Exit");
 			System.out.print("Please enter your choice: ");
 		}
-		public static void addNewMember() {
+		public static void addNewMember(ArrayList<Member> members) {
 			String lastName = null, firstName = null, cancer = null, diabetes = null, alzheimers = null;
 			int age = 0, height = 0, weight = 0, bpSyst = 0, bpDias = 0; 
 			Member newMember = new Member(lastName, firstName, age, height, weight,
@@ -94,7 +94,7 @@ public class MainApp {
 				}
 				if (choice == 2) {
 					//Add a new member
-					addNewMember();
+					addNewMember(members);
 				}
 				if (choice == 3) {
 					//Save members

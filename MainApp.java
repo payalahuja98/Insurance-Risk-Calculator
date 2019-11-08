@@ -72,15 +72,22 @@ public class MainApp {
 			int choice;
 			System.out.print("Enter name of member file: ");
 			String fileName = sc.nextLine();
+			ArrayList<Member> members = MemberReader.readData(fileName);
+			
 			do {
 				showMenu();
 				choice = sc.nextInt();
 				if (choice == 1) {
-					
+					//List members from the file
+					System.out.println("Here are the members:\n");
+					for(Member memb: members)
+					{
+						System.out.println(memb.toString());
+					}
 				}
 				if (choice == 2) {
 					//Add a new member
-					addNewMember();
+					//addNewMember();
 				}
 				if (choice == 3) {
 					//Save members

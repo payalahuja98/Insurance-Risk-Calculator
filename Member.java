@@ -17,13 +17,13 @@ public class Member {
     public String getFirstName() {
         return firstName;
     }
-    public void setFirstName(String author) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
     public String getLastName() {
         return lastName;
     }
-    public void setLastName(String author) {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
     public int getAge() {
@@ -87,5 +87,20 @@ public class Member {
 		setHasCancer(cancer);
 		setHasDiabetes(diabetes);
 		setHasAlzheimers(alzheimers);	
+	}
+	
+	public String toString(){
+		return String.format("%s, %s\n"
+				+ "Age           %s\n"
+				+ "Height        %s in\n"
+				+ "Weight       %s lbs\n"
+				+ "BP Syst      %s\n"
+				+ "BP Dias       %s\n"
+				+ "Cancer         %s\n"
+				+ "Diabetes       %s\n"
+				+ "Alzheimers     %s\n"
+				+ "-----------------------", lastName,
+				firstName, age, height, weight, bPSyst,
+				bPDias, hasCancer, hasDiabetes, hasAlzheimers);
 	}
 }

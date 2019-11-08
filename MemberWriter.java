@@ -1,4 +1,12 @@
-package insurance_risk;
+import java.beans.XMLEncoder;
+import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+
 /**
  * 
  * @author Payal, Mariana, Rudra
@@ -7,15 +15,67 @@ package insurance_risk;
  *
  */
 public class MemberWriter {
-	public static boolean writeToText() {
-		return false;
+	/**
+	 * 
+	 * @param fileName text file to write to
+	 * @param members list of members
+	 * @return true if written successfully, false otherwise
+	 */
+	public static boolean writeToText(String fileName, ArrayList<Member> members) {
+		try {
+			//creates text-output stream
+			PrintWriter writer = new PrintWriter(new BufferedWriter
+					(new FileWriter(fileName)));
+			
+			for(Member m: members) {
+				writer.println(m);
+			}
+			
+			writer.close();
+			return true;
+		}
+		catch(Exception e) {
+			return false;
+		}		
 	}
 	
-	public static boolean writeToBinary() {
-		return false;
+	/**
+	 * 
+	 * @param fileName binary file to write to
+	 * @param members list of members
+	 * @return true if written successfully, false otherwise
+	 */
+	public static boolean writeToBinary(String fileName, ArrayList<Member> members) {
+		try {
+			//creates object-output stream
+			ObjectOutputStream writer = new ObjectOutputStream(
+					new FileOutputStream(fileName));
+			writer.writeObject(members);
+			writer.close();
+			return true;
+		}
+		catch(Exception e) {
+			return false;
+		}		
 	}
 	
-	public static boolean writeToXML() {
-		return false;
+	/**
+	 * 
+	 * @param fileName XML file to write to
+	 * @param members list of members
+	 * @return true if written successfully, false otherwise
+	 */
+	public static boolean writeToXML(String fileName, ArrayList<Member> members) {
+		try {
+			//creates new XML encoder to write to output stream
+			XMLEncoder writer = new XMLEncoder(
+					new BufferedOutputStream(new FileOutputStream(fileName)));
+			writer.writeObject(members);
+			writer.close();
+			return true;
+		}
+		catch(Exception e) {
+			return false;
+		}
 	}
 }

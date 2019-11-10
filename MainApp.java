@@ -40,8 +40,9 @@ public class MainApp {
 			System.out.println("\t7. Exit");
 			System.out.print("Please enter your choice: ");
 		}
-		public static void addNewMember(String lastName, String firstName, int age, int height, int weight, 
-				int bpSyst, int bpDias, String cancer, String diabetes, String alzheimers) {
+		public static void addNewMember(ArrayList<Member> members) {
+			String lastName = null, firstName = null, cancer = null, diabetes = null, alzheimers = null;
+			int age = 0, height = 0, weight = 0, bpSyst = 0, bpDias = 0; 
 			Member newMember = new Member(lastName, firstName, age, height, weight,
 					bpSyst, bpDias, cancer, diabetes, alzheimers);
 			Scanner sc = new Scanner(System.in);
@@ -60,12 +61,12 @@ public class MainApp {
 			int bloodPressure = sc.nextInt();
 			//int[] bloodPressureArr = bloodPressure.split(" ");
 			System.out.println("Has a family member had ...");
-			System.out.println("Cancer?");
 			newMember.setHasCancer(sc.nextLine());
-			System.out.println("Diabetes?");
+			System.out.println("Cancer?");
 			newMember.setHasDiabetes(sc.nextLine());
-			System.out.println("Alzheimers?");
+			System.out.println("Diabetes?");
 			newMember.setHasAlzheimers(sc.nextLine());
+			System.out.println("Alzheimers?");
 			members.add(newMember);
 			System.out.println("The new member has been added.");
 			
@@ -91,7 +92,7 @@ public class MainApp {
 				}
 				if (choice == 2) {
 					//Add a new member
-					//addNewMember(members);
+					addNewMember(members);
 				}
 				if (choice == 3) {
 					sc.nextLine();

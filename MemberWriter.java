@@ -21,7 +21,7 @@ public class MemberWriter {
 	 * @param members list of members
 	 * @return true if written successfully, false otherwise
 	 */
-	public static boolean writeToText(String fileName, ArrayList<Member> members) {
+	public boolean writeToText(String fileName, ArrayList<Member> members) {
 		try {
 			//creates text-output stream
 			PrintWriter writer = new PrintWriter(new BufferedWriter
@@ -45,7 +45,7 @@ public class MemberWriter {
 	 * @param members list of members
 	 * @return true if written successfully, false otherwise
 	 */
-	public static boolean writeToBinary(String fileName, ArrayList<Member> members) {
+	public boolean writeToBinary(String fileName, ArrayList<Member> members) {
 		try {
 			//creates object-output stream
 			ObjectOutputStream writer = new ObjectOutputStream(
@@ -65,7 +65,7 @@ public class MemberWriter {
 	 * @param members list of members
 	 * @return true if written successfully, false otherwise
 	 */
-	public static boolean writeToXML(String fileName, ArrayList<Member> members) {
+	public boolean writeToXML(String fileName, ArrayList<Member> members) {
 		try {
 			//creates new XML encoder to write to output stream
 			XMLEncoder writer = new XMLEncoder(

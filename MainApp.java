@@ -1,5 +1,3 @@
-package insurance_risk;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -96,7 +94,31 @@ public class MainApp {
 					//addNewMember(members);
 				}
 				if (choice == 3) {
+					sc.nextLine();
 					//Save members
+					MemberWriter m = new MemberWriter();
+					
+					System.out.println("(T)ext, (B)inary, (X)ML?");
+					String type = sc.nextLine();
+					
+					System.out.println("Enter name of output file:");
+					String outputFileName = sc.nextLine();
+					
+					boolean success = false;
+					
+					if(type.equals("T")) {
+						success = m.writeToText(outputFileName, members);
+					}
+					
+					if(type.equals("B")) {
+						success = m.writeToBinary(outputFileName, members);
+					}
+					
+					if(type.equals("X")) {
+						success = m.writeToXML(outputFileName, members);
+					}
+					
+					System.out.println(success);
 				}
 				if (choice == 4) {
 					//Load members

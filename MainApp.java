@@ -1,3 +1,5 @@
+package insurance_risk;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -75,10 +77,13 @@ public class MainApp {
 			printWelcome();
 			Scanner sc = new Scanner(System.in);
 			int choice;
+			String fileType;
 			System.out.print("Enter name of member file: ");
 			String fileName = sc.nextLine();
 			ArrayList<Member> members = MemberReader.readData(fileName);
-			
+			ArrayList<Member> readTxtFile;
+			ArrayList<Member> readBinFile;
+			ArrayList<Member> readXmlFile;
 			do {
 				showMenu();
 				choice = sc.nextInt();
@@ -123,6 +128,37 @@ public class MainApp {
 				}
 				if (choice == 4) {
 					//Load members
+					System.out.print("(T)ext, (B)inary, or (X)ML? ");
+					fileType = sc.next();
+					if(fileType.equals("T")) {
+						System.out.print("Enter name of input file: ");
+						fileName = sc.next();
+						readTxtFile = MemberReader.readMembersFromTextFile(fileName);
+						if(readTxtFile == null) {
+							System.out.println("Boo. Hiss. Drats.");
+						}else {
+							System.out.println(readTxtFile.size() + " members were read.");
+						}
+					}else if(fileType.equals("B")) {
+						System.out.print("Enter name of input file: ");
+						fileName = sc.next();
+						readBinFile = MemberReader.readMembersFromBinary(fileName);
+						if(readBinFile == null) {
+							System.out.println("Boo. Hiss. Drats.");
+						}else {
+							System.out.println(readBinFile.size() + " members were read.");
+						}
+					}
+					else if(fileType.equals("X")) {
+						System.out.print("Enter name of input file: ");
+						fileName = sc.next();
+						readXmlFile = MemberReader.readMembersFromXML(fileName);
+						if(readXmlFile == null) {
+							System.out.println("Boo. Hiss. Drats.");
+						}else {
+							System.out.println(readXmlFile.size() + " members were read.");
+						}
+					}
 				}
 				if (choice == 5) {
 					//Assess members

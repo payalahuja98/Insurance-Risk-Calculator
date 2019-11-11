@@ -1,5 +1,6 @@
 package insurance_risk;
 
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -60,15 +61,16 @@ public class MainApp {
 			System.out.println("Enter weight in pounds: ");
 			newMember.setWeight(sc.nextInt());
 			System.out.println("Enter blood pressure (sys and dia): ");
-			int bloodPressure = sc.nextInt();
-			//int[] bloodPressureArr = bloodPressure.split(" ");
+			newMember.setbPSyst(sc.nextInt()); 
+			newMember.setbPDias(sc.nextInt());
 			System.out.println("Has a family member had ...");
-			newMember.setHasCancer(sc.nextLine());
 			System.out.println("Cancer?");
-			newMember.setHasDiabetes(sc.nextLine());
+			newMember.setHasCancer(sc.nextLine());
+			newMember.setHasCancer(sc.nextLine());
 			System.out.println("Diabetes?");
-			newMember.setHasAlzheimers(sc.nextLine());
+			newMember.setHasDiabetes(sc.nextLine());
 			System.out.println("Alzheimers?");
+			newMember.setHasAlzheimers(sc.nextLine());
 			members.add(newMember);
 			System.out.println("The new member has been added.");
 			

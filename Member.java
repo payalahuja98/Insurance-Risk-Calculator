@@ -1,8 +1,9 @@
 package insurance_risk;
 
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class Member {
+public class Member implements Serializable {
 	private String firstName;
 	private String lastName;
     private int age;
@@ -13,6 +14,19 @@ public class Member {
     private String hasCancer;
     private String hasDiabetes;
     private String hasAlzheimers;
+    
+    public Member() {
+    	firstName = "";
+    	lastName = "";
+    	age = 0;
+    	height = 0;
+    	weight = 0;
+    	bPSyst = 0;
+    	bPDias = 0;
+    	hasCancer = "";
+    	hasDiabetes = "";
+    	hasAlzheimers = "";
+    }
     
     public String getFirstName() {
         return firstName;

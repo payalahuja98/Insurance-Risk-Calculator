@@ -61,8 +61,8 @@ public class MainApp {
 			System.out.println("Enter weight in pounds: ");
 			newMember.setWeight(sc.nextInt());
 			System.out.println("Enter blood pressure (sys and dia): ");
-			newMember.setbPSyst(sc.nextInt()); 
-			newMember.setbPDias(sc.nextInt());
+			newMember.setBPSyst(sc.nextInt()); 
+			newMember.setBPDias(sc.nextInt());
 			System.out.println("Has a family member had ...");
 			System.out.println("Cancer?");
 			newMember.setHasCancer(sc.nextLine());

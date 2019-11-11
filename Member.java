@@ -61,13 +61,13 @@ public class Member implements Serializable {
 	public int getbPSyst() {
 		return bPSyst;
 	}
-	public void setbPSyst(int bPSyst) {
+	public void setBPSyst(int bPSyst) {
 		this.bPSyst = bPSyst;
 	}
 	public int getbPDias() {
 		return bPDias;
 	}
-	public void setbPDias(int bPDias) {
+	public void setBPDias(int bPDias) {
 		this.bPDias = bPDias;
 	}
 	public String getHasCancer() {
@@ -96,8 +96,8 @@ public class Member implements Serializable {
 		setAge(age);
 		setHeight(height);
 		setWeight(weight);
-		setbPSyst(bpSyst);
-		setbPDias(bpDias);
+		setBPSyst(bpSyst);
+		setBPDias(bpDias);
 		setHasCancer(cancer);
 		setHasDiabetes(diabetes);
 		setHasAlzheimers(alzheimers);	

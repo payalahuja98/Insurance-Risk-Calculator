@@ -1,5 +1,3 @@
-package insurance_risk;
-
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -102,8 +100,8 @@ public class MainApp {
 					addNewMember(members);
 				}
 				if (choice == 3) {
-					sc.nextLine();
 					//Save members
+					sc.nextLine();
 					MemberWriter m = new MemberWriter();
 					
 					System.out.println("(T)ext, (B)inary, (X)ML?");
@@ -126,7 +124,11 @@ public class MainApp {
 						success = m.writeToXML(outputFileName, members);
 					}
 					
-					System.out.println(success);
+					if(success) {
+						System.out.println("Members were written successfully");
+					} else {
+						System.out.println("Something went wrong...");
+					}
 				}
 				if (choice == 4) {
 					//Load members
@@ -167,6 +169,19 @@ public class MainApp {
 				}
 				if (choice == 6) {
 					//Save assessments as JSON
+					sc.nextLine();
+					InsuranceScoreWriter i = new InsuranceScoreWriter();
+					
+					System.out.println("Enter name of JSON file:");
+					String fName = sc.nextLine();
+					
+					boolean success = i.writeToJSON(fName, members);
+					
+					if(success) {
+						System.out.println("The scores were written successfully.");
+					} else {
+						System.out.println("Something went wrong...");
+					}	
 				}
 			} while (choice != 7);
 			printGoodBye();

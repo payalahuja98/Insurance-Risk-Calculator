@@ -6,6 +6,7 @@ public class InsuranceScore {
     private int score;
     private String riskLevel;
     
+    //Getters and Setters for each variable
     public String getFirstName() {
 		return firstName;
 	}
@@ -30,4 +31,14 @@ public class InsuranceScore {
 	public void setRiskLevel(String riskLevel) {
 		this.riskLevel = riskLevel;
 	}
+	
+	public String toString(){
+		String firstLast = firstName +", "+lastName;
+		return String.format("Name:       %20s\n"
+				+ "Score:       %20d\n"
+				+ "Verdict:       %20s\n",
+				
+				firstLast, score, riskLevel);
+	}
 }
+

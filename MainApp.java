@@ -1,3 +1,4 @@
+package insurance_risk;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -166,6 +167,10 @@ public class MainApp {
 				}
 				if (choice == 5) {
 					//Assess members
+					ArrayList<InsuranceScore> insuranceScores = Assessor.getScore(members);
+					for(InsuranceScore is : insuranceScores) {
+						System.out.print(is);
+					}
 				}
 				if (choice == 6) {
 					//Save assessments as JSON

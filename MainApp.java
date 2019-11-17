@@ -1,10 +1,167 @@
-package insurance_risk;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * 
+ * @author Payal, Mariana, Rudra
+ * This is the main class, responsible for getting user input 
+ * and facilitating the actions based on that.
+ *
+ */
 public class MainApp {
-	private static ArrayList<Member> members = new ArrayList<Member>();
+	//list of members
+	private ArrayList<Member> members = new ArrayList<Member>();
+	//list of members' scores and risk levels
+	private ArrayList<InsuranceScore> membersScores = new ArrayList<InsuranceScore>();
+	
+	public static void main(String[] args) {
+		printWelcome();
+		
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Enter name of member file: ");
+		String fileName = sc.nextLine();
+		
+		ArrayList<Member> members = MemberReader.readData(fileName);
+		
+		ArrayList<Member> readTxtFile;
+		ArrayList<Member> readBinFile;
+		ArrayList<Member> readXmlFile;
+		boolean success;
+		
+		int choice;
+		
+		do {
+			showMenu();
+			choice = sc.nextInt();
+			
+			switch(choice) {
+			case 1:
+				//List members from the file
+				System.out.println("Here are the members:\n");
+				for(Member memb: members)
+				{
+					System.out.println(memb.toString());
+				}
+				break;
+				
+			case 2:
+				//Add a new member
+				addNewMember(members);
+				break;
+				
+			case 3:
+				//Save members
+				sc.nextLine();
+				MemberWriter m = new MemberWriter();
+				
+				System.out.println("(T)ext, (B)inary, (X)ML?");
+				String type = sc.nextLine();
+				
+				System.out.println("Enter name of output file:");
+				String outputFileName = sc.nextLine();
+				
+				success = false;
+				
+				//call appropriate method in MemberWriter class
+				//returns true if written successfully
+				if(type.equals("T")) {
+					success = m.writeToText(outputFileName, members);
+				}
+				
+				if(type.equals("B")) {
+					success = m.writeToBinary(outputFileName, members);
+				}
+				
+				if(type.equals("X")) {
+					success = m.writeToXML(outputFileName, members);
+				}
+				
+				if(success) {
+					System.out.println("Members were written successfully");
+				} else {
+					System.out.println("Something went wrong...");
+				}
+				
+				break;
+				
+			case 4:
+				//Load members
+				System.out.print("(T)ext, (B)inary, or (X)ML? ");
+				String fileType = sc.next();
+				
+				//call appropriate method in MemberReader class
+				if(fileType.equals("T")) {
+					System.out.print("Enter name of input file: ");
+					fileName = sc.next();
+					
+					readTxtFile = MemberReader.readMembersFromTextFile(fileName);
+					
+					if(readTxtFile == null) {
+						System.out.println("Boo. Hiss. Drats.");
+					} else {
+						System.out.println(readTxtFile.size() + " members were read.");
+					}
+				} else if(fileType.equals("B")) {
+					System.out.print("Enter name of input file: ");
+					fileName = sc.next();
+					
+					readBinFile = MemberReader.readMembersFromBinary(fileName);
+					
+					if(readBinFile == null) {
+						System.out.println("Boo. Hiss. Drats.");
+					} else {
+						System.out.println(readBinFile.size() + " members were read.");
+					}
+				} else if(fileType.equals("X")) {
+					System.out.print("Enter name of input file: ");
+					fileName = sc.next();
+					
+					readXmlFile = MemberReader.readMembersFromXML(fileName);
+					
+					if(readXmlFile == null) {
+						System.out.println("Boo. Hiss. Drats.");
+					} else {
+						System.out.println(readXmlFile.size() + " members were read.");
+					}
+				}
+				
+				break;
+				
+			case 5:
+				//Assess members
+				sc.nextLine();
+				InsuranceScoreWriter iWriter = new InsuranceScoreWriter();
+				InsuranceScore iScore = new InsuranceScore();
+				
+				iWriter.writeToScreen(fileName, iScore.getMembersData());
+				
+				break;
+				
+			case 6:
+				//Save assessments as JSON
+				sc.nextLine();
+				InsuranceScoreWriter i = new InsuranceScoreWriter();
+				
+				System.out.println("Enter name of JSON file:");
+				String fName = sc.nextLine();
+				
+				//call method in InsuranceScoreWriter class
+				//returns true if written successfully
+				success = i.writeToJSON(fName, members);
+				
+				if(success) {
+					System.out.println("The scores were written successfully.");
+				} else {
+					System.out.println("Something went wrong...");
+				}	
+				
+				break;
+			}
+		} while(choice != 7); //keep prompting user until they choose to exit
+		
+		printGoodbye();
+	}
+	
 	private static void printStars(int starCount) {	
 		String starField ="";
 		for (int i = 0; i < starCount; i++) {
@@ -12,6 +169,7 @@ public class MainApp {
 		}
 		System.out.println(starField);
 	}
+	
 	private static void printWelcome() {
 		printStars(40);
 		System.out.println("\tINSURANCE SCORE CARD");
@@ -24,171 +182,61 @@ public class MainApp {
 		System.out.println("  shared on a web-based data exchange.");
 		printStars(40);
 	}
-	private static void printGoodBye() {
+	
+	private static void printGoodbye() {
 		printStars(40);
 		System.out.println("         INSURANCE SCORE CARD");
 		System.out.println("               THANK YOU");
 		printStars(40);
 	}
-	//Menu 
-		public static void showMenu() {
-			System.out.println("\nHere are your choices:");
-			System.out.println("\t1. List members");
-			System.out.println("\t2. Add a new member");
-			System.out.println("\t3. Save members");
-			System.out.println("\t4. Load members");
-			System.out.println("\t5. Assess members");
-			System.out.println("\t6. Save assessments as JSON");
-			System.out.println("\t7. Exit");
-			System.out.print("Please enter your choice: ");
-		}
-		public static void addNewMember(ArrayList<Member> members) {
-			String lastName = null, firstName = null, cancer = null, diabetes = null, alzheimers = null;
-			int age = 0, height = 0, weight = 0, bpSyst = 0, bpDias = 0; 
-			Member newMember = new Member(lastName, firstName, age, height, weight,
-					bpSyst, bpDias, cancer, diabetes, alzheimers);
-			Scanner sc = new Scanner(System.in);
-			System.out.println("Enter first and last name: ");
-			String fullName = sc.nextLine();
-			String[] fullNameArr  = fullName.split(" ");
-			newMember.setFirstName(fullNameArr[0]);
-			newMember.setLastName(fullNameArr[1]);
- 			System.out.println("Enter age");
- 			newMember.setAge(sc.nextInt());
-			System.out.println("Enter height in inches: ");
-			newMember.setHeight(sc.nextInt());
-			System.out.println("Enter weight in pounds: ");
-			newMember.setWeight(sc.nextInt());
-			System.out.println("Enter blood pressure (sys and dia): ");
-			newMember.setBPSyst(sc.nextInt()); 
-			newMember.setBPDias(sc.nextInt());
-			System.out.println("Has a family member had ...");
-			System.out.println("Cancer?");
-			newMember.setHasCancer(sc.nextLine());
-			newMember.setHasCancer(sc.nextLine());
-			System.out.println("Diabetes?");
-			newMember.setHasDiabetes(sc.nextLine());
-			System.out.println("Alzheimers?");
-			newMember.setHasAlzheimers(sc.nextLine());
-			members.add(newMember);
-			System.out.println("The new member has been added.");
-			
-		}
-		public static void main(String[] args) {
-			printWelcome();
-			Scanner sc = new Scanner(System.in);
-			int choice;
-			String fileType;
-			System.out.print("Enter name of member file: ");
-			String fileName = sc.nextLine();
-			ArrayList<Member> members = MemberReader.readData(fileName);
-			ArrayList<Member> readTxtFile;
-			ArrayList<Member> readBinFile;
-			ArrayList<Member> readXmlFile;
-			do {
-				showMenu();
-				choice = sc.nextInt();
-				if (choice == 1) {
-					//List members from the file
-					System.out.println("Here are the members:\n");
-					for(Member memb: members)
-					{
-						System.out.println(memb.toString());
-					}
-				}
-				if (choice == 2) {
-					//Add a new member
-					addNewMember(members);
-				}
-				if (choice == 3) {
-					//Save members
-					sc.nextLine();
-					MemberWriter m = new MemberWriter();
-					
-					System.out.println("(T)ext, (B)inary, (X)ML?");
-					String type = sc.nextLine();
-					
-					System.out.println("Enter name of output file:");
-					String outputFileName = sc.nextLine();
-					
-					boolean success = false;
-					
-					if(type.equals("T")) {
-						success = m.writeToText(outputFileName, members);
-					}
-					
-					if(type.equals("B")) {
-						success = m.writeToBinary(outputFileName, members);
-					}
-					
-					if(type.equals("X")) {
-						success = m.writeToXML(outputFileName, members);
-					}
-					
-					if(success) {
-						System.out.println("Members were written successfully");
-					} else {
-						System.out.println("Something went wrong...");
-					}
-				}
-				if (choice == 4) {
-					//Load members
-					System.out.print("(T)ext, (B)inary, or (X)ML? ");
-					fileType = sc.next();
-					if(fileType.equals("T")) {
-						System.out.print("Enter name of input file: ");
-						fileName = sc.next();
-						readTxtFile = MemberReader.readMembersFromTextFile(fileName);
-						if(readTxtFile == null) {
-							System.out.println("Boo. Hiss. Drats.");
-						}else {
-							System.out.println(readTxtFile.size() + " members were read.");
-						}
-					}else if(fileType.equals("B")) {
-						System.out.print("Enter name of input file: ");
-						fileName = sc.next();
-						readBinFile = MemberReader.readMembersFromBinary(fileName);
-						if(readBinFile == null) {
-							System.out.println("Boo. Hiss. Drats.");
-						}else {
-							System.out.println(readBinFile.size() + " members were read.");
-						}
-					}
-					else if(fileType.equals("X")) {
-						System.out.print("Enter name of input file: ");
-						fileName = sc.next();
-						readXmlFile = MemberReader.readMembersFromXML(fileName);
-						if(readXmlFile == null) {
-							System.out.println("Boo. Hiss. Drats.");
-						}else {
-							System.out.println(readXmlFile.size() + " members were read.");
-						}
-					}
-				}
-				if (choice == 5) {
-					//Assess members
-					ArrayList<InsuranceScore> insuranceScores = Assessor.getScore(members);
-					for(InsuranceScore is : insuranceScores) {
-						System.out.print(is);
-					}
-				}
-				if (choice == 6) {
-					//Save assessments as JSON
-					sc.nextLine();
-					InsuranceScoreWriter i = new InsuranceScoreWriter();
-					
-					System.out.println("Enter name of JSON file:");
-					String fName = sc.nextLine();
-					
-					boolean success = i.writeToJSON(fName, members);
-					
-					if(success) {
-						System.out.println("The scores were written successfully.");
-					} else {
-						System.out.println("Something went wrong...");
-					}	
-				}
-			} while (choice != 7);
-			printGoodBye();
-		}
+	
+	public static void showMenu() {
+		System.out.println("\nHere are your choices:");
+		System.out.println("\t1. List members");
+		System.out.println("\t2. Add a new member");
+		System.out.println("\t3. Save members");
+		System.out.println("\t4. Load members");
+		System.out.println("\t5. Assess members");
+		System.out.println("\t6. Save assessments as JSON");
+		System.out.println("\t7. Exit");
+		System.out.print("Please enter your choice: ");
+	}
+	
+	public static void addNewMember(ArrayList<Member> members) {
+		Scanner sc = new Scanner(System.in);
+		Member newMember = new Member();
+		
+		System.out.println("Enter first and last name: ");
+		String fullName = sc.nextLine();
+		
+		String[] fullNameArr  = fullName.split(" ");
+		newMember.setFirstName(fullNameArr[0]);
+		newMember.setLastName(fullNameArr[1]);
+		
+		System.out.println("Enter age");
+		newMember.setAge(sc.nextInt());
+		
+		System.out.println("Enter height in inches: ");
+		newMember.setHeight(sc.nextInt());
+		
+		System.out.println("Enter weight in pounds: ");
+		newMember.setWeight(sc.nextInt());
+		
+		System.out.println("Enter blood pressure (sys and dia): ");
+		newMember.setBPSyst(sc.nextInt()); 
+		newMember.setBPDias(sc.nextInt());
+		
+		System.out.println("Has a family member had ...");
+		System.out.println("Cancer?");
+		newMember.setHasCancer(sc.nextLine());
+		
+		System.out.println("Diabetes?");
+		newMember.setHasDiabetes(sc.nextLine());
+		
+		System.out.println("Alzheimers?");
+		newMember.setHasAlzheimers(sc.nextLine());
+		
+		members.add(newMember);
+		System.out.println("The new member has been added.");		
+	}
 }

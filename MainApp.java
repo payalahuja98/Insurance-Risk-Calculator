@@ -132,8 +132,10 @@ public class MainApp {
 				sc.nextLine();
 				InsuranceScoreWriter iWriter = new InsuranceScoreWriter();
 				Assessor scoreList = new Assessor();
-				scoreList.getScore(members);
+				//call method in Assessor class to calculate risk levels
+				scoreList.getScore(members); 
 				
+				//call method in InsuranceScoreWriter for printing
 				iWriter.writeToScreen(fileName, scoreList.getListScores());
 				
 				break;
@@ -236,6 +238,7 @@ public class MainApp {
 		newMember.setBPSyst(sc.nextInt()); 
 		newMember.setBPDias(sc.nextInt());
 		
+		sc.nextLine();
 		System.out.println("Has a family member had ...");
 		System.out.println("Cancer?");
 		newMember.setHasCancer(sc.nextLine());

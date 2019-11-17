@@ -1,8 +1,5 @@
-package insurance_risk;
-
 import java.io.*;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.Scanner;
 import java.beans.XMLDecoder;
 /**
@@ -11,8 +8,6 @@ import java.beans.XMLDecoder;
  * This class reads member data from a tab-delimited file.
  *
  */
-
-
 public class MemberReader {
 	public static ArrayList<Member> readData(String fname) {
 		try{

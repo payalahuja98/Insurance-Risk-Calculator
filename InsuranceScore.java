@@ -1,12 +1,30 @@
-package insurance_risk;
-
+/**
+ * 
+ * @author Payal, Mariana, Rudra
+ * This class defines the properties needed
+ * to calculate a member's risk.
+ *
+ */
 public class InsuranceScore {
 	private String firstName;
 	private String lastName;
     private int score;
     private String riskLevel;
     
-    //Getters and Setters for each variable
+    public InsuranceScore() {
+		this.firstName = "";
+		this.lastName = "";
+		this.score = 0;
+		this.riskLevel = "";
+	}
+    
+    public InsuranceScore(String fName, String lName, int s, String risk) {
+		this.firstName = fName;
+		this.lastName = lName;
+		this.score = s;
+		this.riskLevel = risk;
+	}
+	//Getters and Setters for each variable
     public String getFirstName() {
 		return firstName;
 	}
@@ -30,15 +48,6 @@ public class InsuranceScore {
 	}
 	public void setRiskLevel(String riskLevel) {
 		this.riskLevel = riskLevel;
-	}
-	
-	public String toString(){
-		String firstLast = firstName +", "+lastName;
-		return String.format("Name:       %20s\n"
-				+ "Score:       %20d\n"
-				+ "Verdict:       %20s\n",
-				
-				firstLast, score, riskLevel);
 	}
 }
 

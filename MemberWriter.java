@@ -1,5 +1,3 @@
-package insurance_risk;
-
 import java.beans.XMLEncoder;
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;

@@ -12,11 +12,23 @@ import java.util.ArrayList;
  *
  */
 public class InsuranceScoreWriter {
-	public void writeToScreen(String fileName, ArrayList<Member> members) {
-		
+	/**
+	 * 
+	 * @param fileName input file
+	 * @param membersScores list of members' risk levels
+	 */
+	public void writeToScreen(String fileName, ArrayList<InsuranceScore> membersScores) {
+		for (InsuranceScore i: membersScores) {
+			String firstLast = i.getLastName() +", " + i.getFirstName();
+			System.out.printf("Name:       %20s\n"
+					+ "Score:       %20d\n"
+					+ "Verdict:       %20s\n",
+					
+					firstLast, i.getScore(), i.getRiskLevel());
+		}
 	}
 	
-	@SuppressWarnings("unchecked") //what is this for?
+	@SuppressWarnings("unchecked") 
 	
 	/**
 	 * 

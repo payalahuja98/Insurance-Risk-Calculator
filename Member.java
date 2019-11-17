@@ -1,8 +1,11 @@
-package insurance_risk;
-
-import java.util.ArrayList;
 import java.io.Serializable;
 
+/**
+ * 
+ * @author Payal, Mariana, Rudra
+ * This class defines the properties of a member.
+ *
+ */
 public class Member implements Serializable {
 	private String firstName;
 	private String lastName;
@@ -28,6 +31,20 @@ public class Member implements Serializable {
     	hasAlzheimers = "";
     }
     
+    public Member(String lastName, String firstName, int age, int height, int weight, 
+			int bpSyst, int bpDias, String cancer, String diabetes, String alzheimers) {
+    	
+		setLastName(lastName);
+		setFirstName(firstName);
+		setAge(age);
+		setHeight(height);
+		setWeight(weight);
+		setBPSyst(bpSyst);
+		setBPDias(bpDias);
+		setHasCancer(cancer);
+		setHasDiabetes(diabetes);
+		setHasAlzheimers(alzheimers);	
+	}
     public String getFirstName() {
         return firstName;
     }
@@ -58,13 +75,13 @@ public class Member implements Serializable {
 	public void setWeight(int weight) {
 		this.weight = weight;
 	}
-	public int getbPSyst() {
+	public int getBPSyst() {
 		return bPSyst;
 	}
 	public void setBPSyst(int bPSyst) {
 		this.bPSyst = bPSyst;
 	}
-	public int getbPDias() {
+	public int getBPDias() {
 		return bPDias;
 	}
 	public void setBPDias(int bPDias) {
@@ -87,20 +104,6 @@ public class Member implements Serializable {
 	}
 	public void setHasAlzheimers(String hasAlzheimers) {
 		this.hasAlzheimers = hasAlzheimers;
-	}
-	
-	Member(String lastName, String firstName, int age, int height, int weight, 
-			int bpSyst, int bpDias, String cancer, String diabetes, String alzheimers) {
-		setLastName(lastName);
-		setFirstName(firstName);
-		setAge(age);
-		setHeight(height);
-		setWeight(weight);
-		setBPSyst(bpSyst);
-		setBPDias(bpDias);
-		setHasCancer(cancer);
-		setHasDiabetes(diabetes);
-		setHasAlzheimers(alzheimers);	
 	}
 	
 	public String toString(){

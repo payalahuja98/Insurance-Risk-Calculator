@@ -131,9 +131,10 @@ public class MainApp {
 				//Assess members
 				sc.nextLine();
 				InsuranceScoreWriter iWriter = new InsuranceScoreWriter();
-				InsuranceScore iScore = new InsuranceScore();
+				Assessor scoreList = new Assessor();
+				scoreList.getScore(members);
 				
-				iWriter.writeToScreen(fileName, iScore.getMembersData());
+				iWriter.writeToScreen(fileName, scoreList.getListScores());
 				
 				break;
 				
@@ -162,6 +163,11 @@ public class MainApp {
 		printGoodbye();
 	}
 	
+	/**
+	 * 
+	 * @param starCount number of stars to display before
+	 * and after the description
+	 */
 	private static void printStars(int starCount) {	
 		String starField ="";
 		for (int i = 0; i < starCount; i++) {
@@ -202,6 +208,10 @@ public class MainApp {
 		System.out.print("Please enter your choice: ");
 	}
 	
+	/**
+	 * 
+	 * @param members list of members to add to
+	 */
 	public static void addNewMember(ArrayList<Member> members) {
 		Scanner sc = new Scanner(System.in);
 		Member newMember = new Member();
